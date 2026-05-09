@@ -1,0 +1,18 @@
+load("@rules_python//python:defs.bzl", "py_library")
+load("@rules_python//python:packaging.bzl", "py_wheel")
+
+py_library(
+    name = "telequick_python",
+    srcs = glob(["telequick/**/*.py"]),
+    imports = ["."],
+    data = ["//core:telequick_core_ffi.so"],
+    visibility = ["//visibility:public"],
+)
+
+py_wheel(
+    name = "telequick_python_wheel",
+    distribution = "telequick_sdk",
+    version = "1.0.0",
+    deps = [":telequick_python"],
+    visibility = ["//visibility:public"],
+)
